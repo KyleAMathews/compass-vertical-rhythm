@@ -21,4 +21,13 @@ rhythm(0.5);
 
 rhythm(0.25);
 // ---> 0.3125rem
+
+// Use it for React inline styles.
+React.createClass({
+  render: function() {
+    <div style={{margin: rhythm(1)}}>
+      Hello world
+    </div>
+  }
+});
 ```
