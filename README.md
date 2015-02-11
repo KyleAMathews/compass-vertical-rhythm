@@ -1,15 +1,15 @@
-# vertical-rhythm
+# compass-vertical-rhythm
 A port-in-progress of the [Compass vertical rhythm
 library](http://compass-style.org/reference/compass/typography/vertical_rhythm/).
 
 Only the rhythm function has been ported atm.
 
 ## Install
-`npm install vertical-rhythm`
+`npm install compass-vertical-rhythm`
 
 ## Usage
 ```javascript
-var VerticalRhythm = require('vertical-rhythm');
+var VerticalRhythm = require('compass-vertical-rhythm');
 
 var rhythm = VerticalRhythm({baseFontSize: '24px', baseLineHeight: '30px'}).rhythm;
 
