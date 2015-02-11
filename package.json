@@ -1,0 +1,37 @@
+{
+  "name": "vertical-rhythm",
+  "description": "A port-in-progress of the Compass vertical rhythm library",
+  "version": "1.0.0",
+  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/KyleAMathews/vertical-rhythm/issues"
+  },
+  "homepage": "https://github.com/KyleAMathews/vertical-rhythm",
+  "keywords": [
+    "sass",
+    "compass",
+    "vertical-rhythm",
+    "css",
+    "typography"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KyleAMathews/vertical-rhythm.git"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test node_modules/.bin/mocha -w --recursive --compilers coffee:coffee-script/register -R mocha-unfunk-reporter"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "coffee-script": "^1.9.0",
+    "mocha": "^2.1.0",
+    "mocha-unfunk-reporter": "^0.4.0"
+  },
+  "dependencies": {
+    "convert-css-length": "^1.0.1",
+    "object-assign": "^2.0.0",
+    "parse-unit": "^1.0.1"
+  }
+}
