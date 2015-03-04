@@ -14,7 +14,7 @@ defaults =
   rhythmUnit: 'rem'
   defaultRhythmBorderWidth: '1px'
   defaultRhythmBorderStyle: 'solid'
-  roundToNearestHalfLine: false
+  roundToNearestHalfLine: true
   minLinePadding: '2px'
 
 rhythm = (options) ->
@@ -30,8 +30,25 @@ rhythm = (options) ->
     # Limit to 5 decimals.
     return parseFloat(unitLess(rhythmLength).toFixed(5)) + unit(rhythmLength)
 
+establishBaseline = (options) ->
+  convert = convertLength(options.baseFontSize)
+
+  # Set these values on html in your css.
+  return {
+    # 16px is the default browser font size.
+    # Set base fontsize in percent as older browsers (or just IE6) behave
+    # weird otherwise.
+    fontSize: (unitLess(options.baseFontSize)/16) * 100 + "%"
+
+    # Webkit has bug that prevents setting line-height in REMs on <html>
+    # Always setting line-height in em works around that even if we use
+    # REMs elsewhere.
+    lineHeight: convert(options.baseLineHeight, 'em')
+  }
+
 module.exports = (options) ->
   options = objectAssign(defaults, options)
   return {
     rhythm: rhythm(options)
+    establishBaseline: -> establishBaseline(options)
   }
