@@ -17,6 +17,26 @@ defaults =
   roundToNearestHalfLine: true
   minLinePadding: '2px'
 
+linesForFontSize = (fontSize, options) ->
+  convert = convertLength(options.baseFontSize)
+  fontInPx = unitLess(convert(fontSize, 'px'))
+  baseLineHeightInPx = unitLess(convert(options.baseLineHeight, 'px'))
+  minLinePadding = unitLess(convert(options.minLinePadding, 'px'))
+
+  if options.roundToNearestHalfLine
+    lines = Math.ceil(2 * fontInPx / baseLineHeightInPx) / 2
+  else
+    lines = Math.ceil(fontInPx / baseLineHeightInPx)
+
+  # If lines are cramped, include some extra lead.
+  if (lines * baseLineHeightInPx - fontInPx) < (minLinePadding * 2)
+    if options.roundToNearestHalfLine
+      lines += 0.5
+    else
+      lines += 1
+
+  return lines
+
 rhythm = (options) ->
   convert = convertLength(options.baseFontSize)
 
@@ -46,9 +66,32 @@ establishBaseline = (options) ->
     lineHeight: convert(options.baseLineHeight, 'em')
   }
 
+adjustFontSizeTo = (toSize, lines, fromSize, options) ->
+  unless fromSize? then fromSize = options.baseFontSize
+
+  convert = convertLength(options.baseFontSize)
+  fromSize = convert(fromSize, 'px')
+  toSize = convert(toSize, 'px', fromSize)
+  r = rhythm(options)
+
+  if lines is "auto"
+    lines = linesForFontSize(toSize, options)
+
+  return {
+    fontSize: convert(toSize, options.rhythmUnit, fromSize)
+    lineHeight: r(lines, fromSize)
+  }
+
 module.exports = (options) ->
-  options = objectAssign(defaults, options)
+  # Don't override defaults
+  defaultsCopy = JSON.parse(JSON.stringify(defaults))
+
+  options = objectAssign(defaultsCopy, options)
+
   return {
     rhythm: rhythm(options)
     establishBaseline: -> establishBaseline(options)
+    linesForFontSize: (fontSize) -> linesForFontSize(fontSize, options)
+    adjustFontSizeTo: (toSize, lines="auto", fromSize) ->
+      adjustFontSizeTo(toSize, lines, fromSize, options)
   }
