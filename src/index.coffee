@@ -69,6 +69,9 @@ establishBaseline = (options) ->
 adjustFontSizeTo = (toSize, lines, fromSize, options) ->
   unless fromSize? then fromSize = options.baseFontSize
 
+  if unit(toSize) is "%"
+    toSize = unitLess(options.baseFontSize) * (unitLess(toSize)/100) + "px"
+
   convert = convertLength(options.baseFontSize)
   fromSize = convert(fromSize, 'px')
   toSize = convert(toSize, 'px', fromSize)

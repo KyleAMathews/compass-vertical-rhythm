@@ -140,6 +140,11 @@ describe 'adjustFontSizeTo', ->
     expect(result.fontSize).to.equal('3rem')
     expect(result.lineHeight).to.exist
 
+  it 'should accept %', ->
+    result = adjustFontSizeTo('200%')
+    expect(result.fontSize).to.equal('2rem')
+    expect(result.lineHeight).to.exist
+
   it 'should let you set explicit # of lines', ->
     result = adjustFontSizeTo('3em', 3)
     expect(result.fontSize).to.equal('3rem')
