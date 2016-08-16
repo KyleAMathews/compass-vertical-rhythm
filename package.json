@@ -21,6 +21,7 @@
     "url": "https://github.com/KyleAMathews/vertical-rhythm.git"
   },
   "scripts": {
+    "build": "coffee -cb -o dist src/*",
     "test": "NODE_ENV=test node_modules/.bin/mocha --recursive --compilers coffee:coffee-script/register -R mocha-unfunk-reporter",
     "test-watch": "NODE_ENV=test node_modules/.bin/mocha -w --recursive --compilers coffee:coffee-script/register -R mocha-unfunk-reporter"
   },

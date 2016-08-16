@@ -9,7 +9,7 @@ describe 'rhythm', ->
   it 'should calculate rhythm for rem', ->
     vrREM = verticalRhythm({
       baseFontSize: '21px'
-      baseLineHeight: '28px'
+      baseLineHeight: 4/3
       rhythmUnit: 'rem'
     })
     rhythm = vrREM.rhythm
@@ -20,7 +20,7 @@ describe 'rhythm', ->
   it 'should calculate rhythm for em', ->
     vrEM = new verticalRhythm({
       baseFontSize: '24px'
-      baseLineHeight: '30px'
+      baseLineHeight: 1.25
       rhythmUnit: 'em'
     })
     rhythm = vrEM.rhythm
@@ -29,6 +29,17 @@ describe 'rhythm', ->
     expect(rhythm(0.25)).to.equal('0.3125em')
 
   it 'should calculate rhythm for px', ->
+    vrEM = new verticalRhythm({
+      baseFontSize: '24px'
+      baseLineHeight: 1.25
+      rhythmUnit: 'px'
+    })
+    rhythm = vrEM.rhythm
+    expect(rhythm(1)).to.equal('30px')
+    expect(rhythm(0.5)).to.equal('15px')
+    expect(rhythm(0.25)).to.equal('7px')
+
+  it 'should calculate rhythm if lineHeight is set in px', ->
     vrEM = new verticalRhythm({
       baseFontSize: '24px'
       baseLineHeight: '30px'
@@ -43,7 +54,7 @@ describe 'rhythm', ->
 describe 'establishBaseline', ->
   vrREM = verticalRhythm({
     baseFontSize: '24px'
-    baseLineHeight: '30px'
+    baseLineHeight: 1.25
     rhythmUnit: 'rem'
   })
   establishBaseline = vrREM.establishBaseline
@@ -73,7 +84,7 @@ describe 'establishBaseline', ->
 describe 'linesForFontSize', ->
   vrREM = verticalRhythm({
     baseFontSize: '21px'
-    baseLineHeight: '28px'
+    baseLineHeight: 4/3
     rhythmUnit: 'rem'
   })
 
@@ -98,7 +109,7 @@ describe 'linesForFontSize', ->
     # Test when minLinePadding is set to 0.
     vrREM = verticalRhythm({
       baseFontSize: '21px'
-      baseLineHeight: '28px'
+      baseLineHeight: 4/3
       rhythmUnit: 'rem'
       minLinePadding: '0px'
     })
@@ -110,7 +121,7 @@ describe 'linesForFontSize', ->
 describe 'adjustFontSizeTo', ->
   vrREM = verticalRhythm({
     baseFontSize: '21px'
-    baseLineHeight: '28px'
+    baseLineHeight: 4/3
     rhythmUnit: 'rem'
   })
 
@@ -159,7 +170,7 @@ describe 'adjustFontSizeTo', ->
   it 'should return values in whatever the set rhythmUnit is', ->
     vrREM = verticalRhythm({
       baseFontSize: '21px'
-      baseLineHeight: '28px'
+      baseLineHeight: 4/3
       rhythmUnit: 'em'
     })
 

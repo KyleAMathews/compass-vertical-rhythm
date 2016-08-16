@@ -11,7 +11,7 @@ Only the rhythm function has been ported atm.
 ```javascript
 var VerticalRhythm = require('compass-vertical-rhythm');
 
-var rhythm = VerticalRhythm({baseFontSize: '24px', baseLineHeight: '30px'}).rhythm;
+var rhythm = VerticalRhythm({baseFontSize: '24px', baseLineHeight: 1.5}).rhythm;
 
 rhythm(1);
 // ---> 1.25rem

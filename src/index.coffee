@@ -10,7 +10,7 @@ unitLess = (length) ->
 
 defaults =
   baseFontSize: '16px'
-  baseLineHeight: '24px'
+  baseLineHeight: 1.5
   rhythmUnit: 'rem'
   defaultRhythmBorderWidth: '1px'
   defaultRhythmBorderStyle: 'solid'
@@ -19,17 +19,17 @@ defaults =
 
 linesForFontSize = (fontSize, options) ->
   convert = convertLength(options.baseFontSize)
-  fontInPx = unitLess(convert(fontSize, 'px'))
-  baseLineHeightInPx = unitLess(convert(options.baseLineHeight, 'px'))
+  fontSizeInPx = unitLess(convert(fontSize, 'px'))
+  lineHeightInPx = unitLess(options.baseLineHeightInPx)
   minLinePadding = unitLess(convert(options.minLinePadding, 'px'))
 
   if options.roundToNearestHalfLine
-    lines = Math.ceil(2 * fontInPx / baseLineHeightInPx) / 2
+    lines = Math.ceil(2 * fontSizeInPx / lineHeightInPx) / 2
   else
-    lines = Math.ceil(fontInPx / baseLineHeightInPx)
+    lines = Math.ceil(fontSizeInPx / lineHeightInPx)
 
   # If lines are cramped, include some extra lead.
-  if (lines * baseLineHeightInPx - fontInPx) < (minLinePadding * 2)
+  if (lines * lineHeightInPx - fontSizeInPx) < (minLinePadding * 2)
     if options.roundToNearestHalfLine
       lines += 0.5
     else
@@ -41,8 +41,7 @@ rhythm = (options) ->
   convert = convertLength(options.baseFontSize)
 
   return (lines=1, fontSize=options.baseFontSize, offset=0) ->
-    length = ((lines * unitLess(options.baseLineHeight)) - offset)
-    length = length + unit(options.baseLineHeight)
+    length = ((lines * unitLess(options.baseLineHeightInPx)) - offset) + "px"
     rhythmLength = convert(length, options.rhythmUnit, fontSize)
     if unit(rhythmLength) is "px"
       rhythmLength = Math.floor(unitLess(rhythmLength)) + unit(rhythmLength)
@@ -63,7 +62,7 @@ establishBaseline = (options) ->
     # Webkit has bug that prevents setting line-height in REMs on <html>
     # Always setting line-height in em works around that even if we use
     # REMs elsewhere.
-    lineHeight: convert(options.baseLineHeight, 'em')
+    lineHeight: convert(options.baseLineHeightInPx, 'em')
   }
 
 adjustFontSizeTo = (toSize, lines, fromSize, options) ->
@@ -90,6 +89,17 @@ module.exports = (options) ->
   defaultsCopy = JSON.parse(JSON.stringify(defaults))
 
   options = objectAssign(defaultsCopy, options)
+
+  # Backwards compatability. If baseLineHeight is in pixels, convert to unitless
+  # value. Also set line height in pixels as it's used several places.
+  convert = convertLength(options.baseFontSize)
+  if unit(options.baseLineHeight)
+    fontSizeInPx = unitLess(convert(options.baseFontSize, 'px'))
+    lineHeight = convert(options.baseLineHeight, 'px')
+    options.baseLineHeightInPx = lineHeight
+    options.baseLineHeight = unitLess(lineHeight) / fontSizeInPx
+  else
+    options.baseLineHeightInPx = "#{unitLess(options.baseFontSize) * options.baseLineHeight}px"
 
   return {
     rhythm: rhythm(options)
