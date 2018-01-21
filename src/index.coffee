@@ -58,11 +58,7 @@ establishBaseline = (options) ->
     # Set base fontsize in percent as older browsers (or just IE6) behave
     # weird otherwise.
     fontSize: (unitLess(options.baseFontSize)/16) * 100 + "%"
-
-    # Webkit has bug that prevents setting line-height in REMs on <html>
-    # Always setting line-height in em works around that even if we use
-    # REMs elsewhere.
-    lineHeight: convert(options.baseLineHeightInPx, 'em')
+    lineHeight: options.baseLineHeight.toString(),
   }
 
 adjustFontSizeTo = (toSize, lines, fromSize, options) ->

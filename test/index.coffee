@@ -71,14 +71,14 @@ describe 'establishBaseline', ->
     result = establishBaseline()
     expect(parseUnit(result.fontSize)[1]).to.equal("%")
 
-  it 'should return lineHeight with em as its unit', ->
+  it 'should return unitless lineHeight', ->
     result = establishBaseline()
-    expect(parseUnit(result.lineHeight)[1]).to.equal("em")
+    expect(parseUnit(result.lineHeight)[1]).to.equal("")
 
   it 'should return sensible results', ->
     result = establishBaseline()
     expect(result.fontSize).to.equal("150%")
-    expect(result.lineHeight).to.equal("1.25em")
+    expect(result.lineHeight).to.equal("1.25")
 
 
 describe 'linesForFontSize', ->
