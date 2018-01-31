@@ -91,9 +91,7 @@ module.exports = (options) ->
   convert = convertLength(options.baseFontSize)
   if unit(options.baseLineHeight)
     fontSizeInPx = unitLess(convert(options.baseFontSize, 'px'))
-    lineHeight = convert(options.baseLineHeight, 'px')
-    options.baseLineHeightInPx = lineHeight
-    options.baseLineHeight = unitLess(lineHeight) / fontSizeInPx
+    options.baseLineHeightInPx = convert(options.baseLineHeight, 'px')
   else
     options.baseLineHeightInPx = "#{unitLess(options.baseFontSize) * options.baseLineHeight}px"
 
