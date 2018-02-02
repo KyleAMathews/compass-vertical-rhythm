@@ -75,6 +75,13 @@ describe 'establishBaseline', ->
     result = establishBaseline()
     expect(parseUnit(result.lineHeight)[1]).to.equal("")
 
+  it 'should return lineHeight with units if specified', ->
+    vrWithUnits = verticalRhythm({
+      baseLineHeight: '1.25em'
+    })
+    result = vrWithUnits.establishBaseline()
+    expect(parseUnit(result.lineHeight)[1]).to.equal("em")
+
   it 'should return sensible results', ->
     result = establishBaseline()
     expect(result.fontSize).to.equal("150%")
