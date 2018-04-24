@@ -22,7 +22,8 @@
     "url": "https://github.com/KyleAMathews/vertical-rhythm.git"
   },
   "scripts": {
-    "build": "microbundle"
+    "build": "microbundle",
+    "format": "prettier --write src/index.js"
   },
   "devDependencies": {
     "chai": "^1.10.0",
@@ -30,6 +31,7 @@
     "mocha": "^2.1.0",
     "mocha-unfunk-reporter": "^0.4.0",
     "pre-commit": "^1.0.5",
+    "prettier": "^1.12.1",
     "underscore": "^1.8.2"
   },
   "dependencies": {
