@@ -15,19 +15,18 @@
     "typography"
   ],
   "license": "MIT",
+  "source": "src/index.js",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/KyleAMathews/vertical-rhythm.git"
   },
   "scripts": {
-    "build": "coffee -cb -o dist src/*",
-    "test": "NODE_ENV=test node_modules/.bin/mocha --recursive --compilers coffee:coffee-script/register -R mocha-unfunk-reporter",
-    "test-watch": "NODE_ENV=test node_modules/.bin/mocha -w --recursive --compilers coffee:coffee-script/register -R mocha-unfunk-reporter"
+    "build": "microbundle",
   },
   "devDependencies": {
     "chai": "^1.10.0",
-    "coffee-script": "^1.9.0",
+    "microbundle": "^0.4.4",
     "mocha": "^2.1.0",
     "mocha-unfunk-reporter": "^0.4.0",
     "pre-commit": "^1.0.5",
