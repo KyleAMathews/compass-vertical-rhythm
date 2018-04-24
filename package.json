@@ -22,7 +22,7 @@
     "url": "https://github.com/KyleAMathews/vertical-rhythm.git"
   },
   "scripts": {
-    "build": "microbundle",
+    "build": "microbundle"
   },
   "devDependencies": {
     "chai": "^1.10.0",
