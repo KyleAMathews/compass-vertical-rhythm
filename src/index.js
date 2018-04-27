@@ -105,32 +105,35 @@ module.exports = function(options) {
   // Don't override defaults
   const defaultsCopy = JSON.parse(JSON.stringify(defaults))
 
-  options = { ...defaultsCopy, options }
+  const mergedOptions = { ...defaultsCopy, ...options }
 
   // Backwards compatability. If baseLineHeight is in pixels, convert to unitless
   // value. Also set line height in pixels as it's used several places.
-  const convert = convertLength(options.baseFontSize)
-  if (unit(options.baseLineHeight)) {
-    const fontSizeInPx = unitLess(convert(options.baseFontSize, "px"))
-    options.baseLineHeightInPx = convert(options.baseLineHeight, "px")
+  const convert = convertLength(mergedOptions.baseFontSize)
+  if (unit(mergedOptions.baseLineHeight)) {
+    const fontSizeInPx = unitLess(convert(mergedOptions.baseFontSize, "px"))
+    mergedOptions.baseLineHeightInPx = convert(
+      mergedOptions.baseLineHeight,
+      "px"
+    )
   } else {
-    options.baseLineHeightInPx = `${unitLess(options.baseFontSize) *
-      options.baseLineHeight}px`
+    mergedOptions.baseLineHeightInPx = `${unitLess(mergedOptions.baseFontSize) *
+      mergedOptions.baseLineHeight}px`
   }
 
   return {
-    rhythm: rhythm(options),
+    rhythm: rhythm(mergedOptions),
     establishBaseline() {
-      return establishBaseline(options)
+      return establishBaseline(mergedOptions)
     },
     linesForFontSize(fontSize) {
-      return linesForFontSize(fontSize, options)
+      return linesForFontSize(fontSize, mergedOptions)
     },
     adjustFontSizeTo(toSize, lines, fromSize) {
       if (lines == null) {
         lines = "auto"
       }
-      return adjustFontSizeTo(toSize, lines, fromSize, options)
+      return adjustFontSizeTo(toSize, lines, fromSize, mergedOptions)
     },
   }
 }

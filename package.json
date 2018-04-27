@@ -22,6 +22,8 @@
     "url": "https://github.com/KyleAMathews/vertical-rhythm.git"
   },
   "scripts": {
+    "test": "mocha test/index.js",
+    "test-watch": "mocha --watch test/index.js",
     "build": "microbundle",
     "format": "prettier --write src/index.js"
   },
