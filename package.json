@@ -25,6 +25,7 @@
     "test": "mocha test/index.js",
     "test-watch": "mocha --watch test/index.js",
     "build": "microbundle",
+    "publish": "microbundle && npm version patch && npm publish",
     "format": "prettier --write src/index.js"
   },
   "devDependencies": {
